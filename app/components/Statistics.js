@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function Statistics({ medications }) {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
@@ -10,30 +10,23 @@ export default function Statistics({ medications }) {
     pending: 0
   });
 
-  useEffect(() => {
-    calculateStats();
-  }, [selectedDate, medications]);
-
-  const calculateStats = () => {
-    const dailyStats = {
-      total: 0,
-      taken: 0,
-      missed: 0,
-      pending: 0
-    };
-
+  // Wrap calculateStats in useCallback
+  const calculateStats = useCallback(() => {
+    const dailyStats = { total: 0, taken: 0, missed: 0, pending: 0 };
     medications.forEach(med => {
       const dayLogs = med.logs?.[selectedDate] || {};
       const statuses = Object.values(dayLogs);
-      
       dailyStats.total += statuses.length;
       dailyStats.taken += statuses.filter(status => status === 'taken').length;
       dailyStats.missed += statuses.filter(status => status === 'missed').length;
       dailyStats.pending += statuses.filter(status => status === 'pending').length;
     });
-
     setStats(dailyStats);
-  };
+  }, [medications, selectedDate]);
+
+  useEffect(() => {
+    calculateStats();
+  }, [calculateStats]);
 
   return (
     <div className="bg-white shadow-md rounded p-6 mb-8">

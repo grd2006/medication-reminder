@@ -290,9 +290,11 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/MediPing.png" 
-                  alt="MediPing Logo" 
+                <Image
+                  src="/MediPing.png"
+                  alt="MediPing Logo"
+                  width={64}
+                  height={64}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -526,7 +528,7 @@ export default function Home() {
                         
                         <div className="mt-6 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl">
                           <h4 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                            <span>📊</span> Today's Summary
+                            <span>📊</span> Summary
                           </h4>
                           <div className="grid grid-cols-3 gap-4">
                             <div className="text-center">
@@ -568,7 +570,7 @@ export default function Home() {
               <span className="text-2xl">🔔</span>
             </div>
             <h3 className="text-xl font-bold text-white mb-4">Enable Notifications</h3>
-            <p className="text-white/90 mb-6">Get reminded when it's time to take your medications</p>
+            <p className="text-white/90 mb-6">Get reminded when it is time to take your medications</p>
             <button
               onClick={requestNotificationPermission}
               className="bg-white text-orange-600 font-semibold py-3 px-8 rounded-xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
