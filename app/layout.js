@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const viewport = {
-  themeColor: "#3b82f6", // This is the Tailwind blue-500 color
+  themeColor: "#3b82f6", 
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

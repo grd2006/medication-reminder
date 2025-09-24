@@ -10,7 +10,6 @@ export default function Statistics({ medications }) {
     pending: 0
   });
 
-  // Wrap calculateStats in useCallback
   const calculateStats = useCallback(() => {
     const dailyStats = { total: 0, taken: 0, missed: 0, pending: 0 };
     medications.forEach(med => {

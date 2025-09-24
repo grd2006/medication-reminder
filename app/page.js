@@ -111,14 +111,12 @@ export default function Home() {
     try {
       const medId = Date.now().toString();
       
-      // First, create or get the user document
       const userRef = doc(db, 'users', user.uid);
       await setDoc(userRef, {
         email: user.email,
         lastUpdated: new Date().toISOString()
       }, { merge: true });
 
-      // Create logs object
       const dates = generateDatesBetween(newMed.startDate, newMed.endDate, newMed.frequency);
       const logs = {};
       dates.forEach(date => {
@@ -130,7 +128,6 @@ export default function Home() {
         });
       });
 
-      // Create medication document in the medications subcollection
       const medRef = doc(db, 'users', user.uid, 'medications', medId);
       const medData = {
         name: newMed.name,
@@ -146,11 +143,8 @@ export default function Home() {
       };
 
       await setDoc(medRef, medData);
-
-      // Update loadMedications function to handle subcollection
       await loadMedications(user.uid);
       
-      // Reset form
       setNewMed({
         name: '',
         dosage: '',
@@ -285,7 +279,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
         <div className="bg-white/80 backdrop-blur-sm shadow-xl rounded-3xl p-8 mb-8 border border-white/20">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -320,12 +313,10 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Statistics Component */}
         <div className="mb-8">
           <Statistics medications={medications} />
         </div>
         
-        {/* Add Medication Form */}
         <div className="bg-white/80 backdrop-blur-sm shadow-xl rounded-3xl p-8 mb-8 border border-white/20">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
             <span className="w-8 h-8 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center text-white">+</span>
@@ -429,7 +420,6 @@ export default function Home() {
           </form>
         </div>
 
-        {/* Medications List */}
         <div>
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
             <span className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center text-white">📋</span>
@@ -563,7 +553,6 @@ export default function Home() {
           )}
         </div>
 
-        {/* Notification Permission */}
         {permission !== 'granted' && (
           <div className="mt-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl p-8 text-center shadow-xl">
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
